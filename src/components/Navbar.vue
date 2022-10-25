@@ -43,13 +43,13 @@ export default ({
       <div class="collapse navbar-collapse pt-3 py-lg-0" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;" @click="setScroll('center-block')">我們提供的服務</a>
+            <a class="nav-link" href="javascript:;" @click="setScroll('center-block')">我們的宗旨</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="javascript:;" @click="setScroll('team-block')">我們的團隊</a>
           </li>
 
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               語言
@@ -58,7 +58,8 @@ export default ({
               <li><a class="dropdown-item" href="#">English</a></li>
               <li><a class="dropdown-item" href="#">繁體中文</a></li>
             </ul>
-          </li>
+          </li> -->
+          
           <!-- <li class="nav-item">
             <router-link to="/recruit" class="nav-link">成為志工</router-link>
           </li> -->

@@ -2,11 +2,11 @@
 
 <template>
   <footer class="container-fluid p-0">
-    <div class="row">
-      <div class="col-6">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-5">
 
       </div>
-      <div class="col-4">
+      <div class="col-md-7 col-lg-5 info">
         <span>Contact</span>
         <ul>
           <li class="d-flex">
@@ -19,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-2">
+      <div class="col-md-3 col-lg-2">
         <span>Follow Us</span>
         <ul class="d-flex media">
           <li>
@@ -60,9 +60,18 @@ footer {
         color: #fff;
       }
 
+      p {
+        @media (max-width: 414px) {
+         font-size: 14px;
+        }
+      }
+
     }
 
     .media {
+      @media (max-width: 767px) {
+          justify-content: center;
+        }
       i {
         margin-right: 15px;
         font-size: 40px;
@@ -71,6 +80,16 @@ footer {
         &:hover {
           opacity: .8;
         }
+
+      }
+    }
+
+    .info {
+      @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
       }
     }
 
@@ -79,6 +98,10 @@ footer {
       font-size: 33px;
       font-weight: 100;
       margin-bottom: 20px;
+
+      @media (max-width: 767px) {
+        text-align: center;
+      }
     }
   }
 
@@ -90,6 +113,9 @@ footer {
     color: var(--bg-color);
     background-color: var(--sub-color);
     letter-spacing: 1px;
+    @media (max-width: 414px) {
+         font-size: 14px;
+        }
   }
 }
 </style>

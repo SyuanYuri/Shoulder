@@ -32,6 +32,15 @@ export default defineComponent({
             ]
           },
           {
+            name: '黃嘉穗',
+            title: '共同創辦人暨董事',
+            image: 'JiaSuei',
+            info: [
+            "前香港東亞科技董事長",
+              "長期投入孩童教育志工"
+            ]
+          },
+          {
             name: '黃君豪 Jeff',
             title: '共同創辦人暨副董事長暨英語教學平台負責人',
             image: 'Jeff',
@@ -47,7 +56,8 @@ export default defineComponent({
             image: 'Jamie',
             info: [
               "醫學相關背景",
-              "於服務業深耕多年，極具耐心"
+              "於服務業深耕多年，極具耐心",
+              "富有愛心，願意為孩子的未來努力"
             ]
           },
           {
@@ -64,9 +74,10 @@ export default defineComponent({
           {
             name: '余雲貴',
             title: '共同創辦人兼監察人',
-            image: 'person-01',
+            image: 'YunGuei',
             info: [
-              "知名高爾夫球教練"
+              "知名高爾夫球教練",
+              "欣格高爾夫用品店負責人"
             ]
           },
         ],
@@ -111,27 +122,27 @@ export default defineComponent({
   <div class="top-block">
     <section class="container">
       <h3>
-        在台灣，
+        我們發現運動青少年在求學、
         <br>
-        運動員就只能是運動員。
+        訓練與成長的過程中少了點什麼...
       </h3>
       <span class="line"></span>
-      <div class="d-flex justify-content-center px-2">
-        <section>
-          <p>在台灣，所謂的體育班花了一半以上的時間在訓練，那有人幫助他們學業嗎？</p>
-          <p>在台灣，體育青少年如果沒有走上職業那他們靠什麼為生？</p>
-          <p>在台灣，這些體育青少年知道他們可以靠著運動成績出國讀書，開拓眼界嗎？</p>
+        <section class="text-center">
+          <p>在台灣有多少人重視體育青少年的學業發展？</p>
+          <p>在台灣有多少人給予這些體育青少年好的品德教育？</p>
+          <p>在台灣有多少人專門教導體育青少年英文？</p>
+          <p>在台灣有多少人在揭曉比賽成績後，好好關懷這些體育青少年？</p>
+          <p class="mt-5">因此我們決定為這些運動青少年貢獻一點力量...</p>
         </section>
+      <div class="mt-5 d-flex flex-column align-items-center">
+        <!-- <h4 class="pt-5 mb-3">這裡可以放一句介紹 + 一張照片</h4> -->
+        <img src="@/assets/slogan-02.jpg" alt="" style="width: 40vw;">
       </div>
-      <!-- <div class="mt-5 d-flex flex-column align-items-center">
-        <h4 class="pt-5 mb-3">這裡可以放一句介紹 + 一張照片</h4>
-        <img src="@/assets/img-01.jpg" alt="" style="width: 40vw;">
-      </div> -->
     </section>
   </div>
 
   <div class="container" id="center-block">
-    <h3>我們提供的服務</h3>
+    <h3>我們的宗旨</h3>
     <span class="line"></span>
     <div class="row gx-5">
       <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
@@ -140,10 +151,10 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            英語教育
+            平衡學業發展
           </h4>
           <p>
-            我們尋求眾多美國志工朋友在他們平常休息的時候，貢獻一些時數來跟我們的運動青少年做線上課程，透過每週一到兩個小時的課程，在長期對談的影響下，將英文化為實際的工具，即使面對外國選手時也不會畏懼開口交流，增加他們的能力和自信心。
+            我們舉辦家長座談會，鼓勵家長要注重還自的學科，平衡孩子在訓練和課業上的發展。除此之外，我們還要了解孩子的學習斷層，而不是一昧的附加學習壓力在孩子的身上。最後還要教導孩子有效的時間分配及效率管理，讓孩子可以有效的分配時間在運動和讀書上面。
           </p>
         </section>
         <!-- <a href="" class="link">
@@ -157,9 +168,9 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            陪伴與品德教育
+            注重品德發展
           </h4>
-          <p>透過平時的關懷，間接傳遞正確的品德觀念給體育青少年，並在面臨訓練低潮時提供適時的陪伴、建立信心。</p>
+          <p>我們注重孩子的全人教育，期許運動員除了擁有體育專才以外，也必須要有好的品德，在未來的道路中，透過良好的心理素質及正確的觀念，並秉持正向的態度面對許多挫敗或是外來的誘惑，才能發揮正向影響力，塑造好的榜樣給後輩學習，進而改善台灣的體育圈、帶給台灣社會正向的影響。</p>
         </section>
         <!-- <a href="" class="link">
           怎麼發展長期影響力？
@@ -172,10 +183,10 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            協助移地訓練，計畫實現目標
+            英文的提升
           </h4>
           <p>
-            協助體育青少年設定目標，築夢並踏實，但出國訓練對大多數家庭都是一筆沉重的負擔，最龐大的就是住宿費用，為此，我們努力尋找國外有愛心的志工家庭，能夠幫助青少年在出國征戰的過程中能夠免除找尋住宿的困境，同時透過與美國家庭的相處，真正領會文化的涵養。
+            青少年選手除了要有好的體育技術、好的品德，方要有好的軟實力才能更上一層樓，而這個軟實力我們從英文出發。增進英文能力不管是對於比賽或是訓練都有莫大的幫助，好比說在與世界各地的選手比賽時可以透過英文交流，藉此消除孤立感極不自在感，穩定在賽場上的表現等等。
           </p>
         </section>
         <!-- <a href="" class="link">
@@ -189,9 +200,9 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            讓運動員不只是運動員
+            陪伴與關懷
           </h4>
-          <p>透過基礎英文的培育，加上選手原本就擁有的優異比賽成績，我們會輔導小朋友接軌國際資源。</p>
+          <p>我們注重陪伴與關懷青少年選手，透過傾聽、陪伴、支持、專業的運動心理諮詢等，讓青少年選手能夠用正確的態度來面對運動場上的失意，小小年紀就要面對場上許多成敗，如果沒有人陪在他們的身邊理解他們的難過與無奈，並給予治癒挫折的特效藥，他們可能就會自暴自棄、抽菸、酗酒等。</p>
         </section>
         <!-- <a href="" class="link">
           怎麼發展長期影響力？
@@ -216,7 +227,8 @@ export default defineComponent({
     <span class="line"></span>
     <div v-for="(item, index) in teamData.main" :key="index" class="content">
       <div class="img-box d-none d-md-block">
-        <img :src="require(`@/assets/member/${item.image}.jpg`)" alt="">
+        <img :src="require(`@/assets/member/${item.image}.jpg`)" alt=""
+        :style="[index===1 ? {'transform': 'scale(1)'} : '']">
       </div>
       <section class="d-flex flex-column justify-content-center">
         <div class="img-box d-block d-md-none">
