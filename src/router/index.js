@@ -6,14 +6,29 @@ const routes = [
     component: () => import('@/views/Home.vue'),
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue'),
+  },
+  {
     path: '/recruit',
     name: 'Recruit',
     component: () => import('@/views/Recruit.vue'),
-    //   } ,
-    //   {
-    //     path : '/stay' ,
-    //     name : 'Stay' ,
-    //     component : ( )  =>  import ( '@/views/Stay.vue' ) ,
+  },
+  {
+    path: '/backstage',
+    name: 'Backstage',
+    component: () => import('@/views/Backstage.vue'),
+    children: [
+      {
+        path: 'recruit',
+        component: () => import('@/views/Back/Recruit.vue'),
+      },
+      {
+        path: 'user',
+        component: () => import('@/views/Back/User.vue'),
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",

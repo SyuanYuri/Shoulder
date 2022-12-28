@@ -1,5 +1,5 @@
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 export default ({
   name: 'Navbar',
   setup() {
@@ -22,8 +22,16 @@ export default ({
       window.scrollTo(0, element.offsetTop - 70);
     }
 
+    function setLang(lang) {
+      console.log('reload');
+      console.log('lang', lang);
+      localStorage.setItem('language', lang);
+      window.location.reload();
+    }
+
     return {
       scrollState,
+      setLang,
       setScroll
     }
   },
@@ -31,10 +39,11 @@ export default ({
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark px-3 py-3 position-fixed" :class="scrollState ? 'navbar-bg' : ''">
+  <nav class="navbar navbar-expand-lg navbar-dark px-3 position-fixed" :class="scrollState ? 'navbar-bg' : ''">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="@/assets/logo.png" alt="" class="logo-img">
+      <a class="navbar-brand" href="/">
+        <h1>Shoulders 秀德教育基金會</h1>
+        <!-- <img src="../assets/logo-text.png" alt="" class="logo-img"> -->
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,30 +52,30 @@ export default ({
       <div class="collapse navbar-collapse pt-3 py-lg-0" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;" @click="setScroll('center-block')">我們的宗旨</a>
+            <a class="nav-link" href="javascript:;" @click="setScroll('center-block')">{{ $t("navbar.objectives") }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;" @click="setScroll('team-block')">我們的團隊</a>
+            <a class="nav-link" href="javascript:;" @click="setScroll('team-block')">{{ $t("navbar.team") }}</a>
           </li>
 
-          <!-- <li class="nav-item dropdown">
+          <li class="nav-item">
+            <router-link to="/recruit" class="nav-link">成為志工</router-link>
+          </li>
+
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              語言
+              {{ $t("navbar.language") }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">English</a></li>
-              <li><a class="dropdown-item" href="#">繁體中文</a></li>
+              <li><a class="dropdown-item" href="#" @click="setLang('en-US')">English</a></li>
+              <li><a class="dropdown-item" href="#" @click="setLang('zh-TW')">繁體中文</a></li>
             </ul>
-          </li> -->
-          
-          <!-- <li class="nav-item">
-            <router-link to="/recruit" class="nav-link">成為志工</router-link>
-          </li> -->
+          </li>
         </ul>
-        <a href="#" class="dark-btn ms-0 ms-lg-3">
-          捐款支持 v1.0
-        </a>
+        <!-- <a href="#donate-block" class="dark-btn ms-0 ms-lg-3">
+          捐款支持
+        </a> -->
       </div>
     </div>
   </nav>
@@ -79,6 +88,18 @@ export default ({
   z-index: 100;
   transition: all .3s;
   background-image: linear-gradient(to bottom, #656565, transparent 100%);
+
+  h1 {
+    margin: 0;
+    width: 180px;
+    height: 45px;
+    text-indent: 101%;
+    white-space: nowrap;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../assets/logo-text.png);
+  }
 
   .nav-link {
     position: relative;
@@ -120,9 +141,13 @@ export default ({
   }
 
   .logo-img {
-    width: 75px;
-    position: absolute;
-    top: 3px;
+    width: 210px;
+
+    @media (max-width:575px) {
+      width: 180px;
+      top: 12px;
+      left: 20px;
+    }
   }
 }
 
@@ -146,6 +171,7 @@ export default ({
 
   .dark-btn {
     color: #1f718c;
+    font-weight: bold;
     background: var(--sub-color);
     border: 2px solid transparent;
 
@@ -168,6 +194,7 @@ export default ({
 
 .dark-btn {
   color: #fff;
+  font-weight: bold;
   background: var(--main-color);
   border: 2px solid transparent;
 

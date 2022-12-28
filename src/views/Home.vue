@@ -1,16 +1,26 @@
 <script>
+import { useI18n } from "vue-i18n";
 import { reactive, defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
+import MemberCard from '@/components/MemberCard.vue'
+// import PopperWrapper from "@/components/PopperWrapper";
 
 export default defineComponent({
   name: 'Home',
   components: {
+    Navbar,
+    Footer,
+    MemberCard,
+    // PopperWrapper,
     Carousel,
     Slide,
     Navigation,
   },
   setup() {
+    const { t, locale } = useI18n();
     const imgList = reactive([
       { url: 'banner' },
       { url: 'banner' },
@@ -22,28 +32,35 @@ export default defineComponent({
       {
         main: [
           {
-            name: '宋明峯 Jason',
-            title: '創辦人兼董事長',
-            image: 'Jason',
+            name: "宋佳樺 Jamie",
+            title: "共同創辦人暨執行長",
+            image: "Jamie",
+            mail: "jamiesung@shouldersfoundationtw.org",
+            info: [
+              "畢業於臺北醫學大學",
+              "曾任職於連鎖咖啡集團值班經理",
+              "曾服務於台北萬豪酒店",
+              "溫暖、富有愛心，願意為了孩子的未來努力"
+            ]
+          },
+          {
+            name: "宋明峯 Jason",
+            title: "創辦人暨董事長",
+            image: "Jason",
+            mail: "jasonsung@shouldersfoundationtw.org",
+            // test: t("__hello_world"),
             info: [
               "長達 20 年帶領高爾夫球選手征戰各巡迴賽經驗",
-              "培養高爾夫球選手贏過多次青少年冠軍及職業日巡賽，歐巡賽冠軍",
+              "培養高爾夫球選手贏過多次青少年冠軍及職業日巡賽、歐巡賽冠軍",
               "青少年選手家長課堂創辦人"
             ]
           },
           {
-            name: '黃嘉穗',
-            title: '共同創辦人暨董事',
-            image: 'JiaSuei',
-            info: [
-            "前香港東亞科技董事長",
-              "長期投入孩童教育志工"
-            ]
-          },
-          {
-            name: '黃君豪 Jeff',
-            title: '共同創辦人暨副董事長暨英語教學平台負責人',
-            image: 'Jeff',
+            name: "黃君豪 Jeff",
+            title: "共同創辦人暨副董事長暨",
+            subTitle: "英語教學平台負責人",
+            image: "Jeff",
+            mail: "jeffhuang@shouldersfoundationtw.org",
             info: [
               "國立大學應用外語系講師",
               "前財星五百大北美市場發展總監",
@@ -51,19 +68,59 @@ export default defineComponent({
             ]
           },
           {
-            name: '宋佳樺 Jamie',
-            title: '共同創辦人兼執行長',
-            image: 'Jamie',
+            name: "黃嘉穗",
+            title: "共同創辦人暨董事",
+            image: "JiaSuei",
+            mail: "",
             info: [
-              "醫學相關背景",
-              "於服務業深耕多年，極具耐心",
-              "富有愛心，願意為孩子的未來努力"
+              "前香港東亞科技董事長",
+              "長期投入孩童教育事工"
             ]
           },
           {
-            name: '楊培傑 PJ',
-            title: '共同創辦人',
-            image: 'PJ',
+            name: "顏培寧 Nick",
+            title: "行銷營運總監",
+            image: "Nick",
+            mail: "",
+            info: [
+              "20 年品牌創建與廣告⾏銷經驗",
+              "長期擔任非營利組織之品牌與數位轉型顧問",
+              "多次擔任新創團隊之發展導師"
+            ]
+          },
+          {
+            name: "Tali na' Hahaw",
+            title: "英文科總召集人",
+            image: "Tali na' Hahaw",
+            mail: "ethanshih@shouldersfoundationtw.org",
+            info: [
+              "宜蘭寒溪泰雅族",
+              "輔大英文系/國立中央大學英文系",
+              "國立台灣大學語言學研究所",
+              "中華民國斐陶斐學術協會終身榮譽會員",
+              "YouTube英文教學頻道",
+              "英文教學 20 餘年經歷（高中英文/多益/托福）",
+              "睿林教育｜英文科召集人",
+            ]
+          },
+          {
+            name: "Sunny Cheng",
+            title: "英語教學師資招募負責人",
+            image: "Sunny",
+            mail: "",
+            info: [
+              "國發會雙語國家 教學活動英文主持",
+              "國際珍古德實驗教育 英文老師",
+              "多年教育經驗，熟悉不同教育背景",
+              "精通口說對話、職場英文、多益英文",
+              "曾任英語機構教務主任"
+            ]
+          },
+          {
+            name: "楊培傑 PJ",
+            title: "共同創辦人",
+            image: "PJ",
+            mail: "",
             info: [
               "20 多年半導體電子業行銷與市場開發經驗",
               "竹科光電公司營運策略總監",
@@ -72,37 +129,67 @@ export default defineComponent({
             ]
           },
           {
-            name: '余雲貴',
-            title: '共同創辦人兼監察人',
-            image: 'YunGuei',
+            name: "余雲貴",
+            title: "共同創辦人暨監察人",
+            image: "YunGuei",
+            mail: "",
             info: [
               "知名高爾夫球教練",
               "欣格高爾夫用品店負責人"
             ]
-          },
+          }
         ],
-        partner: [
+        // enTeam: [
+        //   {
+        //     name: "黃君豪 Jeff",
+        //     title: "共同創辦人暨副董事長暨",
+        //     subTitle: "英語教學平台負責人",
+        //     image: "Jeff",
+        //     mail: "jeffhuang@shouldersfoundationtw.org",
+        //     info: [
+        //       "國立大學應用外語系講師",
+        //       "前財星五百大北美市場發展總監",
+        //       "語言新創 新台灣人數位有限公司 負責人"
+        //     ]
+        //   },
+        //   {
+        //     name: "Tali na' Hahaw",
+        //     title: "英文科總召集人",
+        //     image: "Tali na' Hahaw",
+        //     mail: "ethanshih@shouldersfoundationtw.org",
+        //     info: [
+        //       "宜蘭寒溪泰雅族",
+        //       "輔大英文系/國立中央大學英文系",
+        //       "國立台灣大學語言學研究所",
+        //       "中華民國斐陶斐學術協會終身榮譽會員",
+        //       "YouTube英文教學頻道",
+        //       "英文教學 20 餘年經歷（高中英文/多益/托福）",
+        //       "睿林教育｜英文科召集人",
+        //     ]
+        //   },
+        //   {
+        //     name: "Sunny Cheng",
+        //     title: "英語教學師資招募負責人",
+        //     image: "Sunny",
+        //     mail: "",
+        //     info: [
+        //       "國發會雙語國家 教學活動英文主持",
+        //       "國際珍古德實驗教育 英文老師",
+        //       "多年教育經驗，熟悉不同教育背景",
+        //       "精通口說對話、職場英文、多益英文",
+        //       "曾任英語機構教務主任"
+        //     ]
+        //   },
+        // ],
+        others: [
           {
             name: "林騰老師",
-            title: "",
+            title: "數學顧問",
             image: "LinTeng",
+            mail: "",
             info: [
               "建國中學、台北大學畢業",
               "20 年知名數學補教業名師"
-            ]
-          },
-          {
-            name: "Tali na' Hahaw",
-            title: "",
-            image: "Tali na' Hahaw",
-            info: [
-              "宜蘭寒溪泰雅族",
-              "輔大英文系/國立中央大學英文系",
-              "國立台灣大學語言學研究所",
-              "中華民國斐陶斐學術協會終身榮譽會員",
-              "YouTube英文教學頻道：",
-              "英文教學 20 餘年經歷（高中英文/多益/托福）",
-              "蘆洲睿林教育補習班｜英文科召集人",
             ]
           },
         ]
@@ -111,71 +198,115 @@ export default defineComponent({
 
     return {
       imgList,
-      teamData
+      teamData,
+      publicPath: process.env.BASE_URL
     }
   },
 })
 </script>
 
 <template>
+  <Navbar />
   <img src="@/assets/banner.jpg" alt="" class="banner">
-  <div class="top-block">
+  <div class="profiles-block">
     <section class="container">
       <h3>
-        我們發現運動青少年在求學、
+        {{ $t("profiles.section_01") }}
         <br>
-        訓練與成長的過程中少了點什麼...
+        {{ $t("profiles.section_02") }}
+        <br>
+        {{ $t("profiles.section_03") }}
       </h3>
       <span class="line"></span>
-        <section class="text-center">
-          <p>在台灣有多少人重視體育青少年的學業發展？</p>
-          <p>在台灣有多少人給予這些體育青少年好的品德教育？</p>
-          <p>在台灣有多少人專門教導體育青少年英文？</p>
-          <p>在台灣有多少人在揭曉比賽成績後，好好關懷這些體育青少年？</p>
-          <p class="mt-5">因此我們決定為這些運動青少年貢獻一點力量...</p>
-        </section>
+      <!-- 電腦版 -->
+      <section class="text-center d-none d-sm-block">
+        <p>
+          {{ $t("profiles.section_04") }}
+          <br>
+          {{ $t("profiles.section_05") }}
+          <br>
+          {{ $t("profiles.section_06") }}
+          <br>
+          {{ $t("profiles.section_07") }}
+        </p>
+
+        <p class="mt-5">
+          {{ $t("profiles.section_08") }}
+          <br>
+          {{ $t("profiles.section_09") }}
+          <br>
+          {{ $t("profiles.section_10") }}
+        </p>
+      </section>
+
+      <!-- 手機版 -->
+      <section class="text-center d-block d-sm-none" style="font-size: 14px;">
+        <p>
+          {{ $t("profiles.section_04") }}
+          <br>
+          {{ $t("profiles.section_05") }}
+          <br>
+          {{ $t("profiles.section_06") }}
+          <br>
+          {{ $t("profiles.mb.section_01") }}
+          <br>
+          {{ $t("profiles.mb.section_02") }}
+        </p>
+
+        <p class="mt-5">
+          {{ $t("profiles.section_08") }}
+          <br>
+          {{ $t("profiles.mb.section_03") }}
+          <br>
+          {{ $t("profiles.mb.section_04") }}
+          <br>
+          {{ $t("profiles.mb.section_05") }}
+          <br>
+          {{ $t("profiles.mb.section_06") }}
+        </p>
+      </section>
+
       <div class="mt-5 d-flex flex-column align-items-center">
-        <!-- <h4 class="pt-5 mb-3">這裡可以放一句介紹 + 一張照片</h4> -->
-        <img src="@/assets/slogan-02.jpg" alt="" style="width: 40vw;">
+        <img src="@/assets/slogan.png" alt="" class="slogan">
       </div>
     </section>
   </div>
 
   <div class="container" id="center-block">
-    <h3>我們的宗旨</h3>
+    <h3>{{ $t("navbar.objectives") }}</h3>
     <span class="line"></span>
     <div class="row gx-5">
-      <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
+      <div v-for="(item,index) in 4" class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
         <div class="img-box">
-          <img src="@/assets/serve-01.png" alt="">
+          <img :src="require(`@/assets/serve-0${index+1}.png`)" alt="">
+          <!-- <img src="@/assets/serve-01.png" alt=""> -->
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            平衡學業發展
+            {{ $t(`objectives.title_0${index+1}`) }}
           </h4>
-          <p>
-            我們舉辦家長座談會，鼓勵家長要注重還自的學科，平衡孩子在訓練和課業上的發展。除此之外，我們還要了解孩子的學習斷層，而不是一昧的附加學習壓力在孩子的身上。最後還要教導孩子有效的時間分配及效率管理，讓孩子可以有效的分配時間在運動和讀書上面。
-          </p>
+          <!-- <p>
+            {{ $t(`objectives.section_0${index+1}`) }}
+          </p> -->
+          <ul>
+            <li v-for="(e,i) in 3">
+              {{ $t(`objectives.section_0${index+1}.list_0${i+1}`) }}
+            </li>
+          </ul>
         </section>
-        <!-- <a href="" class="link">
-          怎麼發展長期影響力？
-          <i class="fa-solid fa-arrow-right"></i>
-        </a> -->
       </div>
-      <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
+      <!-- <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
         <div class="img-box">
           <img src="@/assets/serve-02.png" alt="">
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            注重品德發展
+            {{ $t("objectives.title_02") }}
           </h4>
-          <p>我們注重孩子的全人教育，期許運動員除了擁有體育專才以外，也必須要有好的品德，在未來的道路中，透過良好的心理素質及正確的觀念，並秉持正向的態度面對許多挫敗或是外來的誘惑，才能發揮正向影響力，塑造好的榜樣給後輩學習，進而改善台灣的體育圈、帶給台灣社會正向的影響。</p>
+          <p>
+            {{ $t("objectives.section_02") }}
+          </p>
         </section>
-        <!-- <a href="" class="link">
-          怎麼發展長期影響力？
-          <i class="fa-solid fa-arrow-right"></i>
-        </a> -->
       </div>
       <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
         <div class="img-box">
@@ -183,16 +314,12 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            英文的提升
+            {{ $t("objectives.title_03") }}
           </h4>
           <p>
-            青少年選手除了要有好的體育技術、好的品德，方要有好的軟實力才能更上一層樓，而這個軟實力我們從英文出發。增進英文能力不管是對於比賽或是訓練都有莫大的幫助，好比說在與世界各地的選手比賽時可以透過英文交流，藉此消除孤立感極不自在感，穩定在賽場上的表現等等。
+            {{ $t("objectives.section_03") }}
           </p>
         </section>
-        <!-- <a href="" class="link">
-          怎麼發展長期影響力？
-          <i class="fa-solid fa-arrow-right"></i>
-        </a> -->
       </div>
       <div class="col-12 col-lg-6 col-xl-3 my-4 my-lg-0">
         <div class="img-box">
@@ -200,15 +327,13 @@ export default defineComponent({
         </div>
         <section class="pt-3 mt-lg-0 px-4 px-md-0">
           <h4>
-            陪伴與關懷
+            {{ $t("objectives.title_04") }}
           </h4>
-          <p>我們注重陪伴與關懷青少年選手，透過傾聽、陪伴、支持、專業的運動心理諮詢等，讓青少年選手能夠用正確的態度來面對運動場上的失意，小小年紀就要面對場上許多成敗，如果沒有人陪在他們的身邊理解他們的難過與無奈，並給予治癒挫折的特效藥，他們可能就會自暴自棄、抽菸、酗酒等。</p>
+          <p>
+            {{ $t("objectives.section_04") }}
+          </p>
         </section>
-        <!-- <a href="" class="link">
-          怎麼發展長期影響力？
-          <i class="fa-solid fa-arrow-right"></i>
-        </a> -->
-      </div>
+      </div> -->
     </div>
 
     <!-- 暫時隱藏 -->
@@ -223,12 +348,30 @@ export default defineComponent({
   </div>
 
   <div id="team-block">
-    <h3>創辦成員</h3>
+    <h3>創建團隊</h3>
+    <span class="underline"></span>
+    <div class="container content">
+      <member-card :list="teamData.main"></member-card>
+      <!-- <div class="my-5">
+        <h3>英文團隊</h3>
+        <span class="underline"></span>
+      </div>
+      <member-card :list="teamData.enTeam"></member-card> -->
+      <div class="my-5">
+        <h3>協力團隊</h3>
+        <span class="underline"></span>
+      </div>
+      <member-card :list="teamData.others"></member-card>
+    </div>
+  </div>
+
+  <!-- 電腦版 -->
+  <!-- <div id="team-block" class="d-none d-md-block">
+    <h3>核心人員</h3>
     <span class="line"></span>
     <div v-for="(item, index) in teamData.main" :key="index" class="content">
       <div class="img-box d-none d-md-block">
-        <img :src="require(`@/assets/member/${item.image}.jpg`)" alt=""
-        :style="[index===1 ? {'transform': 'scale(1)'} : '']">
+        <img :src="require(`@/assets/member/${item.image}.jpg`)" alt="">
       </div>
       <section class="d-flex flex-column justify-content-center">
         <div class="img-box d-block d-md-none">
@@ -237,6 +380,10 @@ export default defineComponent({
         <div class="info-box">
           <h2>{{ item.name }}</h2>
           <h4 class="mb-0">{{ item.title }}</h4>
+          <small v-if="item.mail !== ''" class="d-flex align-items-center mt-1">
+            <i class="fa-solid fa-envelope mt-1 me-2"></i>
+            <a :href="`mailto:${item.mail}`">{{ item.mail }}</a>
+          </small>
           <span class="underline"></span>
           <ul>
             <li v-for="(e, i) in item.info" :key="i">
@@ -248,7 +395,7 @@ export default defineComponent({
     </div>
 
     <div class="my-5">
-      <h3>協力夥伴</h3>
+      <h3>團隊夥伴</h3>
       <span class="line"></span>
     </div>
     <div v-for="(item, index) in teamData.partner" :key="index" class="content">
@@ -260,17 +407,26 @@ export default defineComponent({
           <img :src="require(`@/assets/member/${item.image}.jpg`)" alt="">
         </div>
         <div class="info-box">
-          <h2 class="mb-0">{{ item.name }}</h2>
+          <h2 :style="[index === 1 ? { 'display': 'block' } : { 'display': 'none' }]">達利·那·哈浩</h2>
+          <h2>{{ item.name }}</h2>
+          <h4 class="mb-0">{{ item.title }}</h4>
+          <small v-if="item.mail !== ''" class="d-flex align-items-center mt-1">
+            <i class="fa-solid fa-envelope mt-1 me-2"></i>
+            <a :href="`mailto:${item.mail}`">{{ item.mail }}</a>
+          </small>
           <span class="underline"></span>
           <ul>
             <li v-for="(e, i) in item.info" :key="i">
               {{ e }}
+              <span :style="[i === 4 ? { 'display': 'block' } : { 'display': 'none' }]">
+                <a href="https://www.youtube.com/@ethanglish" target="_blank">Ethanglish｜英文教室 多益學測托福</a>
+              </span>
             </li>
           </ul>
         </div>
       </section>
     </div>
-  </div>
+  </div> -->
 
   <!-- <div class="container d-flex bottom-block">
     <section>
@@ -289,14 +445,140 @@ export default defineComponent({
     </div>
   </div> -->
 
+  <div class="container" id="donate-block">
+    <h3>捐款支持</h3>
+    <span class="line"></span>
+
+    <section class="mt-1">
+      <p class="fw-bold" style="color: #595757; font-size: 20px;">邀請您，⼀同陪伴青少年運動選⼿走⼀哩路</p>
+      <span class="underline"></span>
+      <p>
+        教育改變體育，改變從基礎教育與英文開始。我們深信青少年運動選手在培訓運動專長的同時應兼顧基本學科發展、品德教育與⼼理關懷。因此 SEF 致⼒於幫助及改變青少年運動選手⾝⼼靈全面平衡發展。
+      </p>
+    </section>
+
+    <div class="accordion mt-5" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            臺幣轉帳
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+              請依下列資訊進行轉帳，完成後請填寫<a href="https://forms.gle/p5dqhrX55hGth1DLA"
+                target="_blank">捐款收據表單</a>，將會有專人與您聯繫。
+            </p>
+
+            <ul>
+              <li><strong>戶名</strong>｜財團法人新北市秀德教育基金會</li>
+              <li><strong>匯款銀行</strong>｜國泰世華銀行新樹分行 (013)</li>
+              <li><strong>匯款帳戶</strong>｜104035666800</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            非臺幣轉帳 <i class="fa-solid fa-hands-holding-dollar"></i>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>請用以下資訊進行轉帳：</p>
+            <ul>
+              <li>
+                <strong>Beneficiary’s Name</strong>｜Shoulders Education Foundation
+              </li>
+              <li>
+                <strong>A/C with Bank</strong>｜CATHAY UNITED BANK, TAIPEI, TAIWAN（國泰世華商業銀行）
+              </li>
+              <li>
+                <strong>A/C with Bank Address</strong>｜1F., NO. 7, SONGREN ROAD, TAIPEI CITY, 11073, TAIWAN
+                （110 台北市信義區松仁路7號）
+              </li>
+              <li>
+                <strong>Account No.</strong>｜104035666800
+              </li>
+              <li>
+                <strong>Swift Code</strong>｜UWCBTWTP
+              </li>
+              <li>
+                <strong>Beneficiary’s Telephone No.</strong>｜+886-987-689-628, +886-972-285-177
+              </li>
+              <li>
+                <strong>Email Address</strong>｜jamiesung@shouldersfoundationtw.org
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            郵政劃撥
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
+            plugin adds the appropriate classes that we use to style each element. These classes control the overall
+            appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom
+            CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+            <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- <div class="sef-item my-5 p-4 px-5">
+      <section>
+        <h5>瀏覽 SEF 「捐款名冊」</h5>
+        <p class="m-0">查詢捐款紀錄（定期每個月 15 日更新）</p>
+      </section>
+
+      <a :href="`${publicPath}pdf-file/donateList.pdf`" download>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+          class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+        </svg>
+      </a>
+    </div> -->
+
+    <p class="mt-4">
+      若您為代表企業的夥伴，歡迎您來信至「<a
+        href="mailto:jamiesung@shouldersfoundationtw.org">jamiesung@shouldersfoundationtw.org</a>」，相關夥伴將與您接洽。
+    </p>
+  </div>
+
+  <a href="#donate-block" class="donate-btn">
+    <section>
+      <img src="../assets/icon-hands.png" alt="" width="45">
+      <p class="mb-2">捐款支持</p>
+    </section>
+  </a>
+
+  <Footer />
 </template>
 
 <style lang="scss" scoped>
-h3,
-.top-block h4 {
+h3 {
   line-height: 40px;
   text-align: center;
   font-weight: bold;
+
+  @media (max-width: 414px) {
+    font-size: 22px;
+  }
 }
 
 .line {
@@ -304,10 +586,10 @@ h3,
   height: 1px;
   width: 250px;
   margin: 40px auto;
-  background-color: #000;
+  background-color: #cacaca;
 }
 
-.top-block {
+.profiles-block {
   padding: 100px 0;
   background-color: #EFEFEF;
 
@@ -317,6 +599,18 @@ h3,
 
   h4 {
     font-size: 20px;
+  }
+
+  p {
+    line-height: 50px;
+  }
+
+  .slogan {
+    width: 40vw;
+
+    @media (max-width: 991px) {
+      width: 100%;
+    }
   }
 }
 
@@ -329,7 +623,14 @@ h3,
 
   p {
     line-height: 33px;
-    text-align: justify;
+    // text-align: justify;
+  }
+
+  ul {
+   padding-left: 20px;
+   li {
+    margin-bottom: 10px;
+   }
   }
 
   h4 {
@@ -369,114 +670,6 @@ h3,
   }
 }
 
-#team-block {
-  padding: 70px 0;
-  background-color: #EFEFEF;
-
-  @media (max-width: 991px) {
-    margin: auto;
-  }
-
-  .content {
-    margin: 50px;
-    display: flex;
-    justify-content: center;
-
-    @media (max-width: 767px) {
-      margin: 180px 50px;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    @media (max-width: 575px) {
-      margin: 180px 20px 0;
-    }
-
-    .img-box {
-      height: 300px;
-      width: 100%;
-      max-width: 300px;
-      margin: auto -160px auto 0;
-      position: relative;
-      border-radius: 100%;
-      overflow: hidden;
-
-      @media (max-width: 767px) {
-        margin: -160px auto 0;
-      }
-
-      img {
-        width: 300px;
-        height: 100%;
-        border-radius: 10px 0 0 10px;
-        object-fit: cover;
-        z-index: 10;
-        transform: scale(1.1);
-        object-position: 10% 30%;
-      }
-    }
-
-    section {
-      width: 800px;
-      max-width: 100%;
-      padding: 20px 20px 20px 180px;
-      border-radius: 10px;
-      background: #fff;
-      box-shadow: 3px 5px 10px #ccc;
-
-      @media (max-width: 767px) {
-        padding: 20px 0;
-      }
-
-      .underline {
-        width: 20%;
-        height: 5px;
-        display: block;
-        margin: 15px 0 10px 0;
-        background: linear-gradient(to left, var(--main-color) 50%, var(--sub-color) 50%);
-      }
-
-      .info-box {
-        @media (max-width: 767px) {
-          // margin: auto;
-          padding: 20px;
-        }
-      }
-
-      h2 {
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      h4 {
-        font-size: 16px;
-        color: #656565;
-      }
-
-      ul {
-        padding-left: 25px;
-        margin: 0;
-
-        li {
-          line-height: 33px;
-        }
-      }
-    }
-  }
-
-  // img {
-  //   width: 300px;
-  //   height: 370px;
-  //   border-radius: 10px 0 0 10px;
-  //   // height: 300px;
-  //   // border-radius: 100%;
-  //   margin: auto -160px auto 0;
-  //   object-fit: cover;
-  //   position: relative;
-  //   z-index: 10;
-  // }
-}
-
 .bottom-block {
   padding: 50px;
   margin-top: 100px;
@@ -504,6 +697,146 @@ h3,
     &:hover {
       color: #fff;
       background-color: var(--main-color);
+    }
+  }
+}
+
+#donate-block {
+  max-width: 1050px;
+  padding: 100px 30px;
+
+  .accordion-item {
+    border: none !important;
+
+    &,
+    .accordion-button {
+      background-color: #EFEFEF;
+    }
+
+    .accordion-button::after {
+      display: none;
+    }
+
+    .accordion-button::before {
+      flex-shrink: 0;
+      width: var(--bs-accordion-btn-icon-width);
+      height: var(--bs-accordion-btn-icon-width);
+      margin-right: 15px;
+      content: "";
+      background-image: var(--bs-accordion-btn-icon) !important;
+      background-repeat: no-repeat;
+      background-size: var(--bs-accordion-btn-icon-width);
+      transition: var(--bs-accordion-btn-icon-transition);
+    }
+
+    .accordion-button:not(.collapsed) {
+      color: #000 !important;
+
+      &::before {
+        background-image: var(--bs-accordion-btn-active-icon);
+        transform: var(--bs-accordion-btn-icon-transform);
+      }
+    }
+
+    .accordion-button:focus {
+      box-shadow: none !important;
+    }
+
+  }
+
+  a {
+    font-weight: bold;
+    color: var(--main-color);
+    text-decoration: none;
+    transition: border-color .3s ease;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      border-bottom: 1px solid var(--main-color);
+    }
+  }
+
+  ul {
+    padding: 20px 50px;
+    background: #fff;
+
+    li {
+      margin: 10px 0;
+      font-size: 20px;
+      font-weight: bold;
+      word-break: break-word;
+
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .sef-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--bg-color);
+    background-color: var(--sub-color);
+
+    h5 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    p {
+      font-weight: bold;
+    }
+
+    a {
+      color: var(--bg-color);
+      transition: all .3s;
+      border: none;
+
+      &:hover {
+        opacity: .7;
+        border: none;
+      }
+
+      svg {
+        font-size: 50px;
+      }
+    }
+  }
+}
+
+.donate-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  color: #000;
+  text-decoration: none;
+
+  @media (max-width: 575px) {
+    right: 15px;
+    bottom: 15px;
+  }
+
+  &:hover section {
+    opacity: .9;
+    box-shadow: 2px 2px 4px #707070;
+  }
+
+  section {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--sub-color);
+    border-radius: 100%;
+    box-shadow: 2px 2px 5px #505050;
+    transition: all .3s;
+
+    p {
+      font-weight: bold;
     }
   }
 }

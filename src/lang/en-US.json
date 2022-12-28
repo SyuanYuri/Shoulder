@@ -1,0 +1,37 @@
+{
+    "navbar": {
+        "team": "Our Team",
+        "objectives": "Our Objectives",
+        "language": "Language"
+    },
+    "profiles": {
+        "section_01": "Something has been missing",
+        "section_02": "in the young student athletes’ development of",
+        "section_03": "training and academic studies.",
+        "section_04": "In Taiwan, people rarely put stress on the academic performance of the young student athletes.",
+        "section_05": "In Taiwan, people rarely provide adequate moral education for the young student athletes.",
+        "section_06": "In Taiwan, people rarely devote their time to teaching English to the young student athletes.",
+        "section_07": "In Taiwan, people rarely care for these young student athletes after their game results come out.",
+        "section_08": "Shoulders Foundation thus resolves to do something for the young student athletes in Taiwan.",
+        "section_09": "We wish to help the young student athletes with limited resources in Taiwan to bring out their full potentials beyond the language barrier of English so that they can better themselves to be the honor of Taiwan,",
+        "section_10": "through which Taiwan can be seen by the world.",
+        "mb": {
+            "section_01": "In Taiwan, people rarely care for",
+            "section_02": "these young student athletes after their game results come out.",
+            "section_03": "We wish to help the young student athletes with limited resources in Taiwan",
+            "section_04": "to bring out their full potentials beyond the language barrier of English",
+            "section_05": "so that they can better themselves to be the honor of Taiwan.",
+            "section_06": "through which Taiwan can be seen by the world."
+        }
+    },
+    "objectives": {
+        "title_01": "To strike a balance between sports and academic studies.",
+        "title_02": "To focus more on children’s moral development",
+        "title_03": "To enhance young student athletes’ English level",
+        "title_04": "To accompany and show our concern to them",
+        "section_01": "We regularly hold parent seminars, encouraging parents to take more heed of the academic performance of their children to achieve the balance between sporting and academic performances, on top of which we also spread the message to parents: instead of merely imposing the study stress on their children, their time distribution and efficiency management must also be properly arranged and upheld. In this way, the children can allot their limited time much better.",
+        "section_02": "We put great emphasis on children’s holistic education, expecting them not only to possess sports expertise but also be equipped with decent moral standards, through which they can be endowed with the real power to face the challenges ahead, whether in the sports arena or in the life voyage. Only in so doing can they bring forth the positive circle that in turn ameliorates the sports environment in Taiwan.",
+        "section_03": "In addition to equipping themselves with excellent sports skills and proper moral standards, the young student athletes can never ascend to a higher level without adequate English abilities. The adequacy in English is helpful not only to their international competitions but also to the training in the course. Golf players from around the world all communicate in English, so the adequate abilities to express themselves freely in English can iron out their isolation and discomfort, furthering to stabilize their performance in the course.",
+        "section_04": "We pay much attention to the companionship with and the care for the young student athletes. Through listening, being supportive, and professional consultation on sports psychology, we can help them confront the setbacks in the course with the positive attitude. Given their young age, without proper companionship, they lack an emotional vent through which they need others to understand the hardships they encounter. In the long run, they may consequently turn to self-abandonment, alcohol, or even drugs."
+    }
+}
