@@ -1,68 +1,55 @@
-<script>
-import { ref, reactive } from 'vue'
-import axios from 'axios';
+<script setup>
+import { ref, reactive } from "vue";
+import axios from "axios";
 import router from "@/router";
-axios.defaults.baseURL = 'http://localhost:8080/';
-export default ({
-  name: 'Login',
-  setup() {
-    let loginForm = reactive({
-      usAccount: "",
-      usPassword: "",
+
+// axios.defaults.baseURL = "http://127.0.0.1:8000/api"; // 測試
+axios.defaults.baseURL = "https://shouldersfoundationtw.org/framework/api";
+
+let loginForm = reactive({
+  usAccount: "",
+  usPassword: "",
+});
+
+let loginStatus = ref(false);
+let loginMessage = ref("");
+
+// 登入
+function handleLogin() {
+  axios
+    .post("/login", {
+      usAccount: loginForm.usAccount,
+      usPassword: loginForm.usPassword,
+    })
+    .then((res) => {
+      if (res.data.status) {
+        loginStatus.value = true;
+        loginMessage.value = "";
+
+        // token 儲存至 localStorage
+        let usToken = res.data.response.usToken;
+        let modifier = res.data.response.modifier;
+        localStorage.setItem("token", usToken);
+        localStorage.setItem("modifier", modifier);
+
+        setTimeout(() => {
+          router.push({ path: "/backstage/recruit" });
+        }, 500);
+      } else {
+        loginStatus.value = false;
+        loginMessage.value = res.data.message;
+      }
+    })
+    .catch((error) => {
+      console.log("登入失敗", error);
     });
-
-    let loginStatus = ref(false);
-    let loginMessage = ref("");
-
-    // 登入
-    function handleLogin() {
-      console.log('loginForm', loginForm);
-      axios.post('https://shouldersfoundationtw.org/framework/api/login', {
-        usAccount: loginForm.usAccount,
-        usPassword: loginForm.usPassword,
-      })
-        .then((res) => {
-          console.log('Login', res);
-
-          if (res.data.status) {
-            loginStatus.value = true;
-            loginMessage.value = "";
-
-            // token 儲存至 localStorage
-            let usToken = res.data.response.usToken;
-            let modifier = res.data.response.modifier;
-            localStorage.setItem('token', usToken);
-            localStorage.setItem('modifier', modifier);
-
-            setTimeout(() => {
-              router.push({ path: '/backstage/recruit' })
-            }, 500)
-          } else {
-            loginStatus.value = false;
-            loginMessage.value = res.data.message;
-          }
-        })
-        .catch((error) => {
-          console.log('登入失敗', error);
-        });
-    }
-
-    console.log('loginForm', loginForm);
-
-    return {
-      loginForm,
-      handleLogin,
-      loginStatus,
-      loginMessage,
-    }
-  },
-})
+}
 </script>
 
 <template>
   <div id="login">
     <a href="/">
-      <img src="@/assets/logo-text-blue.png" alt="">
+      <img src="@/assets/logo-text-blue.png" alt="" />
     </a>
     <div class="content">
       <h2 class="my-3">Login</h2>
@@ -72,36 +59,60 @@ export default ({
           <span class="input-group-text" id="usAccount">
             <i class="fa-solid fa-user"></i>
           </span>
-          <input v-model="loginForm.usAccount" type="text" class="form-control" placeholder="account"
-            aria-label="usAccount" aria-describedby="usAccount" required>
+          <input
+            v-model="loginForm.usAccount"
+            type="text"
+            class="form-control"
+            placeholder="account"
+            aria-label="usAccount"
+            aria-describedby="usAccount"
+            required
+          />
         </div>
         <div class="input-group">
           <span class="input-group-text" id="usPassword">
             <i class="fa-solid fa-lock"></i>
           </span>
-          <input v-model="loginForm.usPassword" type="password" class="form-control" placeholder="password"
-            aria-label="usPassword" aria-describedby="usPassword" required>
+          <input
+            v-model="loginForm.usPassword"
+            type="password"
+            class="form-control"
+            placeholder="password"
+            aria-label="usPassword"
+            aria-describedby="usPassword"
+            required
+          />
         </div>
         <!-- 錯誤訊息 -->
-        <small class="mt-2 text-danger d-block" style="height: 25px;"> {{ loginMessage }} </small>
-        <button type="submit" @click="handleLogin" class="mt-3"> Sign in </button>
+        <small class="mt-2 text-danger d-block" style="height: 25px">
+          {{ loginMessage }}
+        </small>
+        <button type="submit" @click="handleLogin" class="mt-3">Sign in</button>
       </form>
-
     </div>
     <!-- Alert -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
         <path
-          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+        />
       </symbol>
     </svg>
-    <div v-if="loginStatus" class="alert alert-success d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+    <div
+      v-if="loginStatus"
+      class="alert alert-success d-flex align-items-center"
+      role="alert"
+    >
+      <svg
+        class="bi flex-shrink-0 me-2"
+        width="24"
+        height="24"
+        role="img"
+        aria-label="Success:"
+      >
         <use xlink:href="#check-circle-fill" />
       </svg>
-      <div>
-        登入成功
-      </div>
+      <div>登入成功</div>
     </div>
   </div>
 </template>
@@ -132,7 +143,9 @@ export default ({
     background: #fff;
     box-shadow: 3px 3px 15px #b8b8b8;
     padding: 15px 40px;
-    background: linear-gradient(#fff, #fff) padding-box, linear-gradient(to left, var(--main-color) 50%, var(--sub-color) 50%) border-box;
+    background: linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(to left, var(--main-color) 50%, var(--sub-color) 50%)
+        border-box;
     border-top: 5px solid transparent;
 
     h2 {
@@ -161,7 +174,6 @@ export default ({
     //   }
     // }
 
-
     button {
       background: var(--main-color);
       border: none;
@@ -170,7 +182,7 @@ export default ({
       font-weight: 200;
       cursor: pointer;
       letter-spacing: 1px;
-      transition: all .3s;
+      transition: all 0.3s;
 
       &:hover {
         color: #fff;
@@ -184,7 +196,7 @@ export default ({
     top: 3%;
     right: 3%;
     z-index: 100;
-    transition: all .3s;
+    transition: all 0.3s;
   }
 }
 </style>

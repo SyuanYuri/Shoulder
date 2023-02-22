@@ -52,10 +52,28 @@ const routes = [
       {
         path: 'recruit',
         component: () => import('@/views/Back/Recruit.vue'),
+        beforeEnter: (to, from) => {
+          const token = localStorage.getItem('token');
+          // 登入頁不需驗證
+          if (to.fullPath === '/login') return;
+          if (!token) {
+            return '/login';
+          }
+          return true;
+        }
       },
       {
         path: 'user',
         component: () => import('@/views/Back/User.vue'),
+        beforeEnter: (to, from) => {
+          const token = localStorage.getItem('token');
+          // 登入頁不需驗證
+          if (to.fullPath === '/login') return;
+          if (!token) {
+            return '/login';
+          }
+          return true;
+        }
       },
     ],
   },

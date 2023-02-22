@@ -101,9 +101,9 @@ export default {
             </ul>
           </li> -->
         </ul>
-        <router-link to="/support" class="dark-btn ms-0 ms-lg-3"
+        <!-- <router-link to="/support" class="dark-btn ms-0 ms-lg-3"
           >捐款支持</router-link
-        >
+        > -->
       </div>
     </div>
   </nav>
