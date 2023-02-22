@@ -21,7 +21,14 @@ export default ({
     /* 取得使用者 */
     function getUserData() {
       loadingState.value = true;
-      axios.get('http://chalaravel.shouldersfoundationtw.org/api/admin')
+      axios({
+        method: 'get',
+        url: 'https://shouldersfoundationtw.org/framework/api/admin',
+        responseType: 'json',
+        headers: {
+          Authorization: token
+        }
+      })
         .then((res) => {
           // 清空陣列後新增
           userList.splice(0);
@@ -42,10 +49,20 @@ export default ({
 
     /* 新增使用者 */
     function addUser() {
-      axios.post('http://chalaravel.shouldersfoundationtw.org/api/admin', {
-        usAccount: userForm.usAccount,
-        usPassword: userForm.usPassword,
-        modifier: userForm.modifier
+      console.log('userForm',userForm);
+
+      axios({
+        method: 'post',
+        url: 'https://shouldersfoundationtw.org/framework/api/admin',
+        responseType: 'json',
+        data: {
+          usAccount: userForm.usAccount,
+          usPassword: userForm.usPassword,
+          modifier: userForm.modifier
+        },
+        headers: {
+          Authorization: token
+        }
       })
         .then((res) => {
           console.log('addUser', res);
@@ -87,22 +104,30 @@ export default ({
 
     /* 編輯使用者 */
     function editUser() {
-      axios.put(`http://chalaravel.shouldersfoundationtw.org/api/admin/${pasteId.value}`, editForm)
-        .then((res) => {
-          if (res.data.status) {
-            alertStatus.value = true;
-            alertMessage.value = "編輯成功";
-            errMessage.value = "";
-            // 關閉編輯視窗
-            document.getElementById("editModalHide").click();
-            getUserData();
-            setTimeout(() => {
-              alertStatus.value = false;
-            }, 5000)
-          } else {
-            errMessage.value = res.data.message;
-          }
-        })
+      // axios.put(`https://shouldersfoundationtw.org/framework/api/admin/${pasteId.value}`, editForm)
+      axios({
+        method: 'put',
+        url: `https://shouldersfoundationtw.org/framework/api/admin/${pasteId.value}`,
+        responseType: 'json',
+        data: editForm,
+        headers: {
+          Authorization: token
+        }
+      }).then((res) => {
+        if (res.data.status) {
+          alertStatus.value = true;
+          alertMessage.value = "編輯成功";
+          errMessage.value = "";
+          // 關閉編輯視窗
+          document.getElementById("editModalHide").click();
+          getUserData();
+          setTimeout(() => {
+            alertStatus.value = false;
+          }, 5000)
+        } else {
+          errMessage.value = res.data.message;
+        }
+      })
         .catch((error) => {
           console.log('編輯失敗', error);
         });
@@ -117,22 +142,29 @@ export default ({
 
     /* 刪除使用者 */
     function deleteUser() {
-      axios.delete(`http://chalaravel.shouldersfoundationtw.org/api/admin/${deleteId.value}`)
-        .then((res) => {
-          if (res.data.status) {
-            alertStatus.value = true;
-            alertMessage.value = "刪除成功";
-            errMessage.value = "";
-            // 關閉刪除視窗
-            document.getElementById("deleteModalHide").click();
-            getUserData();
-            setTimeout(() => {
-              alertStatus.value = false;
-            }, 5000)
-          } else {
-            errMessage.value = res.data.message;
-          }
-        })
+      // axios.delete(`https://shouldersfoundationtw.org/framework/api/admin/${deleteId.value}`)
+      axios({
+        method: 'delete',
+        url: `https://shouldersfoundationtw.org/framework/api/admin/${deleteId.value}`,
+        responseType: 'json',
+        headers: {
+          Authorization: token
+        }
+      }).then((res) => {
+        if (res.data.status) {
+          alertStatus.value = true;
+          alertMessage.value = "刪除成功";
+          errMessage.value = "";
+          // 關閉刪除視窗
+          document.getElementById("deleteModalHide").click();
+          getUserData();
+          setTimeout(() => {
+            alertStatus.value = false;
+          }, 5000)
+        } else {
+          errMessage.value = res.data.message;
+        }
+      })
         .catch((error) => {
           console.log('刪除失敗', error);
         });
@@ -186,8 +218,8 @@ export default ({
     <!-- 讀取動畫 -->
     <div class="spinner-border text-secondary loading" role="status" v-if="loadingState">
       <span class="visually-hidden">Loading...</span>
-
     </div>
+
     <button id="addUser" class="ms-auto" data-bs-toggle="modal" data-bs-target="#addModal"
       @click="removeData('add')">新增使用者</button>
     <table class="table">
@@ -208,7 +240,7 @@ export default ({
           <td>{{ item.usAccount }}</td>
           <td>{{ moment(item.created_at).format("YYYY-MM-DD") }}</td>
           <td>{{ moment(item.updated_at).format("YYYY-MM-DD") }}</td>
-          <td class="btn-box">
+          <td class="d-flex btn-box">
             <button id="editUser" class="ms-auto" data-bs-toggle="modal" data-bs-target="#editModal"
               @click="pasteData(item.usId)">編輯</button>
             <!-- <button>編輯</button> -->
@@ -363,28 +395,6 @@ export default ({
       color: var(--bg-color);
       background-color: #fff;
       border: 2px solid var(--bg-color);
-    }
-  }
-
-  .btn-box {
-    padding-top: 9px;
-
-    button {
-      padding: 3px 8px;
-      border-radius: 5px;
-
-      &:first-child {
-        margin-right: 5px;
-        color: #fff;
-        background-color: var(--bg-color);
-        border: 1px solid transparent;
-      }
-
-      &:last-child {
-        color: var(--bg-color);
-        background-color: #fff;
-        border: 1px solid var(--bg-color);
-      }
     }
   }
 

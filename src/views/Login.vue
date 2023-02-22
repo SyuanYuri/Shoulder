@@ -17,7 +17,7 @@ export default ({
     // 登入
     function handleLogin() {
       console.log('loginForm', loginForm);
-      axios.post('http://chalaravel.shouldersfoundationtw.org/api/login', {
+      axios.post('https://shouldersfoundationtw.org/framework/api/login', {
         usAccount: loginForm.usAccount,
         usPassword: loginForm.usPassword,
       })
@@ -35,7 +35,7 @@ export default ({
             localStorage.setItem('modifier', modifier);
 
             setTimeout(() => {
-              router.push({ path: '/backstage' })
+              router.push({ path: '/backstage/recruit' })
             }, 500)
           } else {
             loginStatus.value = false;

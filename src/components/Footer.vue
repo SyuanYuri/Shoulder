@@ -13,10 +13,13 @@
             <i class="fa-solid fa-house"></i>
             <p class="m-0">22063 新北市板橋區四川路一段23號9樓之1</p>
           </li>
-          <li class="d-flex mt-2">
+          <li class="d-flex">
             <i class="fa-solid fa-envelope mt-1"></i>
             <a href="mailto:sef@shouldersfoundationtw.org">sef@shouldersfoundationtw.org</a>
           </li>
+          <li>新北教社字第 1112012298</li>
+          <li>捐款碼｜220707</li>
+          <li>公益勸募許可字號字號｜衛部救字第 1121360288 號</li>
         </ul>
       </div>
       <div class="col-md-3 col-lg-2">
@@ -38,7 +41,6 @@
             </a>
           </li>
         </ul>
-        <p class="sub-title">新北教社字第 1112012298</p>
       </div>
     </div>
     <h5 class="copyright">
@@ -75,6 +77,11 @@ footer {
     ul {
       padding: 0;
       list-style: none;
+
+      
+      li {
+        margin: 10px 0;
+      }
 
       i {
         margin-right: 10px;

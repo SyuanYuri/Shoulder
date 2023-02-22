@@ -17,6 +17,7 @@ export default ({
       firstName: ""
     })
 
+    let isSuccess = ref(false);
     let confirmEmail = ref("");
     let errorMsg = ref("");
     let rdField = reactive({
@@ -32,57 +33,46 @@ export default ({
       rdAcademic: "",
       rdDepartment: "",
       rdExperience: "",
-      rdTimes: "無時無刻",
+      rdField: [],
       rdJoinUs: "",
-      rdPwd: "123",
+      rdPwd: "-",
       rdAgree: "",
-      modifier: "Yu"
+      modifier: "-",
+      opened: 0 // 是否開啟履歷
     });
-
-    // function submitForm() {
-    //   recordForm.rdAgree ? recordForm.rdAgree = "Y" : recordForm.rdAgree = "N";
-    //   recordForm.rdName = fullName.lastName + fullName.firstName;
-
-    //   console.log('履歷', recordForm);
-
-    //   // 檢查 Email
-    //   if (confirmEmail.value !== recordForm.rdEmail) {
-    //     console.log('email 不相同');
-    //     errorMsg.value = "電子郵件欄位輸入不一致，請再次確認。"
-    //   } else {
-    //     errorMsg.value = "";
-    //   }
-
-    // }
 
     function postForm() {
       recordForm.rdAgree ? recordForm.rdAgree = "Y" : recordForm.rdAgree = "N";
       recordForm.rdName = fullName.lastName + fullName.firstName;
-      console.log('postForm',recordForm);
-      console.log('JSON.stringify(recordForm)',JSON.stringify(recordForm));
+      recordForm.rdField = recordForm.rdField.toString();
+
       if (confirmEmail.value !== recordForm.rdEmail) {
-        console.log('email 不相同');
         errorMsg.value = "電子郵件欄位輸入不一致，請再次確認。"
       } else {
         errorMsg.value = "";
 
-        axios.post('http://chalaravel.shouldersfoundationtw.org/api/record', recordForm)
-        .then((res) => {
-          console.log('res',res);
-        })
-        .catch((error) => {
-          console.log('傳送失敗', error);
-        });
+        axios.post('https://shouldersfoundationtw.org/framework/api/record', recordForm)
+          .then((res) => {
+            console.log('申請成功', res);
+            isSuccess.value = true;
+
+            setTimeout(() => {
+              isSuccess.value = false;
+            }, 3000)
+          })
+          .catch((error) => {
+            console.log('申請失敗', error);
+          });
       }
     }
 
     return {
       fullName,
       recordForm,
-      // submitForm,
       confirmEmail,
       errorMsg,
       rdField,
+      isSuccess,
       postForm
     }
   },
@@ -100,8 +90,8 @@ export default ({
     <p>成為 SEF 的志⼯將可以直接投入您有熱情的領域，透過直接地參與，希望您可以更加了解青少年體育選⼿的樣貌，也期待您可以在 SEF 深度的探索⾃⼰，創造改變的開始。</p>
 
     <div class="form-box">
-      <div class="row">
-        <div class="col-6 px-5 py-4">
+      <div class="row d-flex flex-lg-row flex-column-reverse">
+        <div class="col-12 col-lg-6 px-5 py-4">
           <form class="row g-3" @submit="postForm">
             <div class="col-12">
               <label for="lastName" class="form-label">姓氏</label>
@@ -113,8 +103,8 @@ export default ({
             </div>
             <div class="col-12">
               <label for="cellPhone" class="form-label">手機號碼</label>
-              <input v-model="recordForm.rdCellPhone" type="tel" class="form-control" id="cellPhone"
-                pattern="09\d{8}" placeholder="ex. 0912345678" required>
+              <input v-model="recordForm.rdCellPhone" type="tel" class="form-control" id="cellPhone" pattern="09\d{8}"
+                placeholder="ex. 0912345678" required>
             </div>
             <div class="col-6">
               <label for="country" class="form-label">國籍</label>
@@ -158,25 +148,28 @@ export default ({
               <label for="times" class="form-label">希望投入領域 <small>（可多選）</small> </label>
               <!-- <input v-model="recordForm.rdTimes" type="text" class="form-control" id="times" required> -->
               <div class="form-check">
-                <input v-model="rdField.list" class="form-check-input" type="checkbox" value="1" id="field-1">
+                <input v-model="recordForm.rdField" class="form-check-input" type="checkbox" value="1" id="field-1">
                 <label class="form-check-label" for="field-1">
                   課業輔導組
                 </label>
               </div>
               <div class="form-check">
-                <input v-model="rdField.list" class="form-check-input" type="checkbox" value="2" id="field-2" checked>
+                <input v-model="recordForm.rdField" class="form-check-input" type="checkbox" value="2" id="field-2"
+                  checked>
                 <label class="form-check-label" for="field-2">
                   關懷陪伴組
                 </label>
               </div>
               <div class="form-check">
-                <input v-model="rdField.list" class="form-check-input" type="checkbox" value="3" id="field-3" checked>
+                <input v-model="recordForm.rdField" class="form-check-input" type="checkbox" value="3" id="field-3"
+                  checked>
                 <label class="form-check-label" for="field-3">
                   英文口說組
                 </label>
               </div>
               <div class="form-check">
-                <input v-model="rdField.list" class="form-check-input" type="checkbox" value="4" id="field-4" checked>
+                <input v-model="recordForm.rdField" class="form-check-input" type="checkbox" value="4" id="field-4"
+                  checked>
                 <label class="form-check-label" for="field-4">
                   內部行政組
                 </label>
@@ -191,7 +184,7 @@ export default ({
               <div class="form-check">
                 <input v-model="recordForm.rdAgree" class="form-check-input" type="checkbox" id="agree">
                 <label class="form-check-label" for="agree">
-                  是否同意個資蒐集同意書
+                  是否同意<a href="https://drive.google.com/file/d/1a6JEJaOYatUIe1UfX5HZ-Jtasvw1XCQj/view?usp=sharing" target="_blank">個資蒐集同意書</a>
                 </label>
               </div>
             </div>
@@ -201,11 +194,24 @@ export default ({
             </div>
           </form>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
           <img src="../assets/recruit-banner.jpg" alt="" class="img-fluid">
         </div>
       </div>
-
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </symbol>
+      </svg>
+      <div :class="{ alertShow: isSuccess }" class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+          <use xlink:href="#check-circle-fill" />
+        </svg>
+        <div>
+          申請成功！
+        </div>
+      </div>
     </div>
   </div>
 
@@ -223,6 +229,10 @@ export default ({
   margin: 150px auto;
   padding: 0 100px;
 
+  @media (max-width: 1200px) {
+    padding: 0 20px;
+  }
+
   h3 {
     font-weight: bold;
   }
@@ -236,6 +246,12 @@ export default ({
     height: 100%;
     object-fit: cover;
     border-radius: 0 10px 10px 0;
+
+    @media (max-width: 991px) {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px 10px 0 0;
+    }
   }
 
   .line {
@@ -282,6 +298,9 @@ export default ({
     .form-check {
       label {
         margin: 3px 0 5px 5px;
+        a {
+          color: var(--bg-color);
+        }
       }
 
       .form-check-input {
@@ -301,6 +320,18 @@ export default ({
       }
     }
 
+    .alert {
+      opacity: 0;
+      transition: all .3s;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .alertShow {
+      opacity: 1;
+    }
   }
 }
 </style>

@@ -11,14 +11,9 @@ export default {
       default: []
     }
   },
-  // emit: ['test'],
+
   setup(props, context) {
-    console.log('context', context)
-    console.log('props', props)
-    console.log('props[0]', props.list[0])
-    console.log('props[0]name', props.list[0].name)
     return {
-      // emit: context.emit,
     }
   }
 }
@@ -95,7 +90,8 @@ export default {
     }
 
     a {
-      color: var(--main-color);
+      color: #212529;
+      text-decoration: none;
     }
 
     img {

@@ -26,13 +26,13 @@ export default ({
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link d-flex" style="color: #333; cursor: default;" aria-current="page" href="javascript:;">
+            <a class="nav-link d-flex name-item" aria-current="page" href="javascript:;">
               <i class="fa-solid fa-circle-user me-2"></i>
               {{ userName }}，您好！
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">登出</a>
+            <a class="nav-link logout-btn" href="#">登出</a>
           </li>
         </ul>
       </div>
@@ -40,10 +40,11 @@ export default ({
   </nav>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .navbar {
   z-index: 100;
   background-color: #fff;
+  background-image: none;
 
   .collapse {
     flex-grow: initial;
@@ -55,6 +56,22 @@ export default ({
 
   .fa-circle-user {
     font-size: 25px;
+  }
+
+  .name-item {
+    cursor: default;
+  }
+
+  .nav-link {
+    color: #333 !important;
+  }
+
+  .logout-btn {
+    transition: all .3s;
+
+    &:hover {
+      opacity: .8;
+    }
   }
 }
 </style>

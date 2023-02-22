@@ -65,4 +65,30 @@ export default {
   margin: 30px 0;
   background: linear-gradient(to left, var(--main-color) 50%, var(--sub-color) 50%);
 }
+
+.btn-box {
+    padding-top: 9px;
+
+    button {
+      padding: 3px 8px;
+      border-radius: 5px;
+      transition: all .3s;
+      &:hover {
+        opacity: .8;
+      }
+
+      &:first-child {
+        margin-right: 10px;
+        color: #fff;
+        background-color: var(--bg-color);
+        border: 1px solid transparent;
+      }
+
+      &:last-child {
+        color: var(--bg-color);
+        background-color: #fff;
+        border: 1px solid var(--bg-color);
+      }
+    }
+  }
 </style>

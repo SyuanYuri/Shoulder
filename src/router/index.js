@@ -16,6 +16,35 @@ const routes = [
     component: () => import('@/views/Recruit.vue'),
   },
   {
+    path: '/support',
+    name: 'Support',
+    component: () => import('@/views/Support.vue'),
+  },
+  {
+    path: '/period',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/Period.vue'),
+      },
+      {
+        path: 'info',
+        component: () => import('@/views/UserInfo.vue'),
+      }
+    ]
+  },
+  // {
+  //   path: '/period',
+  //   name: 'Period',
+  //   component: () => import('@/views/Period.vue'),
+  //   // children: [
+  //   //   {
+  //   //     path: 'info',
+  //   //     component: () => import('@/views/UserInfo.vue'),
+  //   //   }
+  //   // ]
+  // },
+  {
     path: '/backstage',
     name: 'Backstage',
     component: () => import('@/views/Backstage.vue'),
@@ -38,5 +67,9 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // 跳轉後滾動至頂部
+    return { top: 0 }
+  },
 });
 export default router;
