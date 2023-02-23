@@ -4,6 +4,8 @@ import axios from 'axios';
 export const useStore = defineStore('store', {
   state: () => ({
     payment_name: '',
+    loadingState: false,
+    alertState: false,
     data: {
       user_name: "", // 姓名
       user_email: "", // 信箱
@@ -11,7 +13,7 @@ export const useStore = defineStore('store', {
       regular: "M", // 定期定額期數單位（M：每月定期扣款、O：一次性扣款）
       regular_total: "0", // 總期數（代入 0）
       /* 以下為必填欄位 */
-      store_uid: "RImHMBzeeOYlTEZaJj17qGZAy4YRh6HY", // 特約商店代碼
+      // store_uid: "RImHMBzeeOYlTEZaJj17qGZAy4YRh6HY", // 特約商店代碼
       user_id: "", // 消費者帳號（時間戳）
       cost: "", // 訂單總金額
       order_id: "", // 訂單編號（時間戳）
@@ -25,6 +27,7 @@ export const useStore = defineStore('store', {
           total: "0"
         }
       ],
+      pfn: "all", // 付款方式
       echo_0: "" // 自訂參數（稱謂）
     }
   }),
@@ -32,42 +35,39 @@ export const useStore = defineStore('store', {
   actions: {
     async payment() {
       console.log('handlerPayment');
-
-        try {
-        console.log('this.data',this.data);
-        const data = await axios.post('https://pay.usecase.cc/api/init',this.data)
-        console.log('data',data);
-        }
-        catch (error) {
-          alert(error)
-          console.log(error)
-      }
-
-        // try {
-        //   console.log('handlerPayment',handlerPayment);
-        //   console.log('this.data',this.data);
-        //   const data = await axios.post('https://pay.usecase.cc/api/init',this.data)
-        //   console.log('data',data);
+      try {
+        console.log('this.data', this.data);
+        const res = await axios.post('https://shouldersfoundationtw.org/framework/api/mypay', this.data)
+        console.log('res', res);
+        // let testData = [
+        //   {
+        //     code: "200",
+        //     msg: "資料正確",
+        //     url: "https://pay.usecase.cc/payment/127261.html",
+        //     uid: 127261,
+        //     key: "e0770835bf752d57c996960ceb82dca6"
         //   }
-        //   catch (error) {
-        //     alert(error)
-        //     console.log(error)
-        // }
-      },
-    // async handlerPayment() {
-    //   try {
-    //     console.log('handlerPayment',handlerPayment);
-    //     console.log('this.data',this.data);
-    //     const data = await axios.post('https://pay.usecase.cc/api/init',this.data)
-    //     console.log('data',data);
-    //     }
-    //     catch (error) {
-    //       alert(error)
-    //       console.log(error)
-    //   }
-    // },
-    // increment() {
-    //   console.log('');
-    // },
+        // ];
+        // console.log('testData.code', testData[0].code);
+        console.log('res code', res[0].code);
+        // if (testData[0].code) {
+        if (res[0].code) {
+          setTimeout(() => {
+            this.loadingState = false;
+          }, 1000)
+
+          this.alertState = true;
+
+          setTimeout(() => {
+            this.alertState = false;
+            location.href = res[0].url;
+          }, 2000)
+        }
+      }
+      catch (error) {
+        alert(error)
+        console.log(error)
+      }
+    },
   },
 })

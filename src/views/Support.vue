@@ -44,7 +44,7 @@ function setPayment(name) {
         <i class="fa-regular fa-circle-right"></i>
       </router-link>
 
-      <router-link to="/period" class="mt-4">
+      <!-- <router-link to="/period" class="mt-4">
         <section>
           <h2>單筆支持捐款</h2>
           <small>捐款方式：信用卡 / LINE Pay / 超商繳款 / ATM 轉帳</small>
@@ -53,7 +53,7 @@ function setPayment(name) {
           </p>
         </section>
         <i class="fa-regular fa-circle-right"></i>
-      </router-link>
+      </router-link> -->
     </div>
 
     <div class="accordion mt-5" id="accordionExample">

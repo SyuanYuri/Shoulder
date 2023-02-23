@@ -3,8 +3,10 @@ import { ref, reactive, watch } from "vue";
 import { useStore } from "@/stores/index";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import router from "@/router/index"
 
 const store = useStore();
+// let loadingState = ref(false);
 // let costVal = ref(3000);
 // let costErr = ref(false);
 // let assignCost = ref(0);
@@ -25,6 +27,7 @@ let n = d.getMilliseconds(); // 毫秒
 let timestamp = `${dataValues.join("")}${n}`; // 時間戳
 
 function handleSubmit() {
+  store.loadingState = true;
   store.data.user_id = timestamp;
   store.data.order_id = timestamp;
   store.data.cost = `${store.data.cost}`;
@@ -33,9 +36,14 @@ function handleSubmit() {
 
   store.payment();
 
-  console.log("store.data",store.data);
-  console.log('store.data.items[0]',store.data.items[0]);
-  console.log('store.data.items[0].cost',store.data.items[0].cost);
+  console.log("store.data", store.data);
+  console.log("store.data.items[0]", store.data.items[0]);
+  console.log("store.data.items[0].cost", store.data.items[0].cost);
+}
+
+function back() {
+  // document.getElementById("form").reset();
+  router.go(-1);
 }
 </script>
 
@@ -89,7 +97,20 @@ function handleSubmit() {
         姓名會作為未來捐款記錄查詢，確認後無法修改，建議儘量使用本名。
       </p>
 
-      <form class="row g-3" @submit.prevent="handleSubmit()">
+      <div
+        class="d-flex justify-content-center loading"
+        v-if="store.loadingState"
+      >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div class="alert alert-success" role="alert" v-if="store.alertState">
+        即將跳轉至捐款頁面…
+      </div>
+
+      <form class="row g-3" id="form" @submit.prevent="handleSubmit()">
         <label for="user_name" class="form-label mb-0">聯絡人姓名</label>
         <div class="input-group mb-3">
           <input
@@ -97,6 +118,7 @@ function handleSubmit() {
             class="form-control"
             id="user_name"
             v-model="store.data.user_name"
+            required
           />
         </div>
 
@@ -130,6 +152,7 @@ function handleSubmit() {
             id="basic-url"
             aria-describedby="basic-addon3"
             v-model="store.data.user_email"
+            required
           />
         </div>
 
@@ -144,11 +167,12 @@ function handleSubmit() {
             id="basic-url"
             aria-describedby="basic-addon3"
             v-model="store.data.user_cellphone"
+            required
           />
         </div>
 
         <div class="router-link mt-5">
-          <a @click="$router.go(-1)">上一步</a>
+          <a @click="back()">上一步</a>
           <button type="submit">下一步</button>
         </div>
       </form>
@@ -174,6 +198,20 @@ function handleSubmit() {
   p {
     margin-bottom: 0;
   }
+}
+
+.alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.loading {
+  position: fixed;
+  left: 50%;
+  z-index: 1;
 }
 
 #period-block {

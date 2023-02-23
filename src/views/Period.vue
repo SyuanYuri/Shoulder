@@ -3,6 +3,7 @@ import { ref, reactive, watch, onMounted } from "vue";
 import { useStore } from "@/stores/index";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import router from "@/router";
 
 const store = useStore();
 let costVal = store.data.cost;
@@ -18,14 +19,13 @@ function setCost(val, e) {
   }
   e.target.classList.add("active-btn");
   store.data.cost = `${val}`;
-
-  console.log("store.data.cost", store.data.cost);
-  console.log("store.payment_name", store.payment_name);
 }
 
 function checkCost() {
+  let input = document.querySelector('#donation-cost');
   let numbers = /^[0-9]*$/; // 任意數字
   let value = `${costVal}`;
+
   if (
     store.data.cost === 0 ||
     store.data.cost === "" ||
@@ -34,6 +34,14 @@ function checkCost() {
     costErr.value = true;
   } else {
     costErr.value = false;
+    router.push('/period/info');
+  }
+
+  if (input.value === "" || input.value === 0 || input.value === "0") {
+    costErr.value = true;
+  } else if (input.value !== 0 || input.value !== "0") {
+    costErr.value = false;
+    router.push('/period/info');
   }
 }
 
@@ -160,7 +168,7 @@ onMounted(() => {
 
       <div class="router-link mt-5">
         <a @click="$router.go(-1)">上一步</a>
-        <router-link to="/period/info" @click="checkCost()">下一步</router-link>
+        <a @click="checkCost()">下一步</a>
       </div>
     </div>
   </div>
