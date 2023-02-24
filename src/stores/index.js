@@ -15,16 +15,16 @@ export const useStore = defineStore('store', {
       /* 以下為必填欄位 */
       // store_uid: "RImHMBzeeOYlTEZaJj17qGZAy4YRh6HY", // 特約商店代碼
       user_id: "", // 消費者帳號（時間戳）
-      cost: "", // 訂單總金額
+      cost: 0, // 訂單總金額
       order_id: "", // 訂單編號（時間戳）
       ip: "127.0.0.1",  // 消費者來源 IP（可填固定值）
       items: [  // 訂單物品項目
         {
           id: "1",
           name: "Shoulders 陪伴青少年運動選手走一哩路",
-          cost: "0",
+          cost: 0,
           amount: "1",
-          total: "0"
+          total: 0
         }
       ],
       pfn: "all", // 付款方式
@@ -39,6 +39,7 @@ export const useStore = defineStore('store', {
         console.log('this.data', this.data);
         const res = await axios.post('https://shouldersfoundationtw.org/framework/api/mypay', this.data)
         console.log('res', res);
+        console.log('res data', res.data);
         // let testData = [
         //   {
         //     code: "200",
@@ -49,9 +50,9 @@ export const useStore = defineStore('store', {
         //   }
         // ];
         // console.log('testData.code', testData[0].code);
-        console.log('res code', res[0].code);
+        console.log('res code', res.data.code);
         // if (testData[0].code) {
-        if (res[0].code) {
+        if (res.data.code) {
           setTimeout(() => {
             this.loadingState = false;
           }, 1000)
@@ -60,7 +61,7 @@ export const useStore = defineStore('store', {
 
           setTimeout(() => {
             this.alertState = false;
-            location.href = res[0].url;
+            location.href = res.data.url;
           }, 2000)
         }
       }

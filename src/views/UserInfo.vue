@@ -30,7 +30,7 @@ function handleSubmit() {
   store.loadingState = true;
   store.data.user_id = timestamp;
   store.data.order_id = timestamp;
-  store.data.cost = `${store.data.cost}`;
+  // store.data.cost = `${store.data.cost}`;
   store.data.items[0].cost = store.data.cost;
   store.data.items[0].total = store.data.cost;
 

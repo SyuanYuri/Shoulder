@@ -18,7 +18,7 @@ function setCost(val, e) {
     btn.classList.remove("active-btn");
   }
   e.target.classList.add("active-btn");
-  store.data.cost = `${val}`;
+  store.data.cost = val;
 }
 
 function checkCost() {
