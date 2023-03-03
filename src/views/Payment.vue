@@ -22,7 +22,7 @@ function setCost(val, e) {
 }
 
 function checkCost() {
-  let input = document.querySelector('#donation-cost');
+  let input = document.querySelector("#donation-cost");
   let numbers = /^[0-9]*$/; // 任意數字
   let value = `${costVal}`;
 
@@ -34,14 +34,14 @@ function checkCost() {
     costErr.value = true;
   } else {
     costErr.value = false;
-    router.push('/period/info');
+    router.push("/payment/info");
   }
 
   if (input.value === "" || input.value === 0 || input.value === "0") {
     costErr.value = true;
   } else if (input.value !== 0 || input.value !== "0") {
     costErr.value = false;
-    router.push('/period/info');
+    router.push("/payment/info");
   }
 }
 
@@ -51,7 +51,7 @@ watch(
     console.log("state", state);
     costErr.value = false;
 
-    let arr = [800, 2000, 3000, 5000];
+    let arr = [600, 1500, 3000, 5000];
     if (store.data.cost != assignCost.value) {
       let btn = document.querySelector(".active-btn");
       if (btn) {
@@ -114,15 +114,20 @@ onMounted(() => {
   </nav>
 
   <div class="container" id="period-block">
-    <h3 class="title">定期定額</h3>
+    <h3 class="title">{{ store.paymentMode }}</h3>
 
     <span class="line"></span>
 
     <div class="form-card">
-      <small
-        >選擇捐款金額 > 填寫捐款人資料 > 確認資訊 > 填寫付款資訊 >
-        完成/取得付款資訊</small
-      >
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <router-link to="/support"> 選擇捐款方式 </router-link>
+          </li>
+          <li class="breadcrumb-item active">選擇捐款金額</li>
+        </ol>
+      </nav>
+
       <h2 class="mt-4">
         選擇捐款金額
         {{
@@ -133,16 +138,16 @@ onMounted(() => {
       </h2>
       <hr class="my-4" />
       <div class="row chosen-btn">
-        <div class="col-6">
-          <button @click="setCost(800, $event)" id="800">NT$800</button>
+        <div class="col-12 col-sm-6">
+          <button @click="setCost(600, $event)" id="600">NT$600</button>
         </div>
-        <div class="col-6">
-          <button @click="setCost(2000, $event)" id="2000">NT$2,000</button>
+        <div class="col-12 col-sm-6">
+          <button @click="setCost(1500, $event)" id="1500">NT$1,500</button>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-6">
           <button @click="setCost(3000, $event)" id="3000">NT$3,000</button>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-6">
           <button @click="setCost(5000, $event)" id="5000">NT$5,000</button>
         </div>
       </div>
@@ -161,10 +166,10 @@ onMounted(() => {
       </div>
       <small v-show="costErr" class="text-danger">請輸入正確捐款金額</small>
 
-      <p class="mt-3">
+      <!-- <p class="mt-3">
         定期定額捐款將於每個月的 25
         日進行扣款，若適逢例假日或國定假日，將順延至下個工作日扣款。
-      </p>
+      </p> -->
 
       <div class="router-link mt-5">
         <a @click="$router.go(-1)">上一步</a>
@@ -214,6 +219,12 @@ onMounted(() => {
     h2 {
       font-size: 26px;
       font-weight: bold;
+    }
+    .breadcrumb {
+      font-size: 14px;
+      a {
+        color: var(--bg-color);
+      }
     }
     .chosen-btn {
       button {

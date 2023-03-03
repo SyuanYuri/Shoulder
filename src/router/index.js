@@ -21,11 +21,11 @@ const routes = [
     component: () => import('@/views/Support.vue'),
   },
   {
-    path: '/period',
+    path: '/payment',
     children: [
       {
         path: '',
-        component: () => import('@/views/Period.vue'),
+        component: () => import('@/views/Payment.vue'),
       },
       {
         path: 'info',
@@ -33,17 +33,6 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: '/period',
-  //   name: 'Period',
-  //   component: () => import('@/views/Period.vue'),
-  //   // children: [
-  //   //   {
-  //   //     path: 'info',
-  //   //     component: () => import('@/views/UserInfo.vue'),
-  //   //   }
-  //   // ]
-  // },
   {
     path: '/backstage',
     name: 'Backstage',

@@ -1,16 +1,13 @@
 <script setup>
 import { ref, reactive, watch } from "vue";
 import { useStore } from "@/stores/index";
+import { storeToRefs } from "pinia";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
-import router from "@/router/index"
+import router from "@/router/index";
 
 const store = useStore();
-// let loadingState = ref(false);
-// let costVal = ref(3000);
-// let costErr = ref(false);
-// let assignCost = ref(0);
-// let checkedGender = ref("");
+const { alert } = storeToRefs(store);
 
 let date = new Date();
 let dataValues = [
@@ -30,15 +27,10 @@ function handleSubmit() {
   store.loadingState = true;
   store.data.user_id = timestamp;
   store.data.order_id = timestamp;
-  // store.data.cost = `${store.data.cost}`;
+  store.data.echo_0 = store.data.user_email;
   store.data.items[0].cost = store.data.cost;
   store.data.items[0].total = store.data.cost;
-
   store.payment();
-
-  console.log("store.data", store.data);
-  console.log("store.data.items[0]", store.data.items[0]);
-  console.log("store.data.items[0].cost", store.data.items[0].cost);
 }
 
 function back() {
@@ -81,22 +73,28 @@ function back() {
     </div>
   </nav>
 
-  <div class="container" id="period-block">
-    <h3 class="title">定期定額</h3>
+  <div class="container" id="payment-block">
+    <h3 class="title">{{ store.paymentMode }}</h3>
 
     <span class="line"></span>
 
     <div class="form-card">
-      <small
-        >選擇捐款金額 > 填寫捐款人資料 > 確認資訊 > 填寫付款資訊 >
-        完成/取得付款資訊</small
-      >
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <router-link to="/support"> 選擇捐款方式 </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/payment"> 選擇捐款金額 </router-link>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            填寫捐款人資料
+          </li>
+        </ol>
+      </nav>
+
       <h2 class="mt-4">填寫捐款人資料</h2>
       <hr class="my-4" />
-      <p class="sub-text">
-        姓名會作為未來捐款記錄查詢，確認後無法修改，建議儘量使用本名。
-      </p>
-
       <div
         class="d-flex justify-content-center loading"
         v-if="store.loadingState"
@@ -106,12 +104,24 @@ function back() {
         </div>
       </div>
 
-      <div class="alert alert-success" role="alert" v-if="store.alertState">
-        即將跳轉至捐款頁面…
+      <div
+        class="alert"
+        :class="[store.alert.state ? 'alert-success' : 'alert-danger']"
+        role="alert"
+        v-if="store.alert.show"
+      >
+        <section class="d-flex align-items">
+          <span> {{ store.alert.msg }}</span>
+          <button
+            type="button"
+            class="btn-close btn-sm ms-2"
+            @click="store.alert.show = false"
+          ></button>
+        </section>
       </div>
 
       <form class="row g-3" id="form" @submit.prevent="handleSubmit()">
-        <label for="user_name" class="form-label mb-0">聯絡人姓名</label>
+        <label for="user_name" class="form-label">聯絡人姓名</label>
         <div class="input-group mb-3">
           <input
             type="text"
@@ -128,7 +138,7 @@ function back() {
             type="radio"
             class="form-check-input"
             id="man"
-            v-model="store.data.echo_0"
+            v-model="store.data.echo_1"
             value="先生"
           />
           <label class="form-check-label" for="man">先生</label>
@@ -138,7 +148,7 @@ function back() {
             type="radio"
             class="form-check-input"
             id="miss"
-            v-model="store.data.echo_0"
+            v-model="store.data.echo_1"
             value="女士"
           />
           <label class="form-check-label" for="miss">女士</label>
@@ -157,9 +167,6 @@ function back() {
         </div>
 
         <label for="basic-url" class="form-label">手機號碼</label>
-        <p class="m-0 sub-text">
-          手機為查詢捐款紀錄使用，建議輸入正確號碼。格式範例：0912345678、886912345678
-        </p>
         <div class="input-group mb-3">
           <input
             type="tel"
@@ -170,6 +177,7 @@ function back() {
             required
           />
         </div>
+        <p class="m-0">感謝您的捐款支持，專人將會在 48 小時內透過電話與您確認捐款收據資料。</p>
 
         <div class="router-link mt-5">
           <a @click="back()">上一步</a>
@@ -214,7 +222,14 @@ function back() {
   z-index: 1;
 }
 
-#period-block {
+.breadcrumb {
+  font-size: 14px;
+  a {
+    color: var(--bg-color);
+  }
+}
+
+#payment-block {
   max-width: 1050px;
   padding: 150px 30px;
   .title {

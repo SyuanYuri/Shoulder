@@ -7,10 +7,18 @@ import Footer from "@/components/Footer.vue";
 
 const store = useStore();
 
-function setPayment(name) {
-  console.log("name", name);
-  store.cost = 3000;
-  store.payment_name = name;
+function setPayment(val) {
+  // console.log("name", name);
+  store.data.regular = val;
+  console.log('store.data', store.data);
+
+  if (val==="M") {
+    console.log('定期');
+    store.paymentMode = '定期定額';
+  } else if (val==="O") {
+    console.log('單筆');
+    store.paymentMode = '單筆捐款';
+  }
 }
 </script>
 
@@ -33,27 +41,27 @@ function setPayment(name) {
     </section>
 
     <div class="d-flex flex-column card-item">
-      <router-link to="/period" @click="setPayment('定期定額捐款')">
+      <router-link to="/payment" @click="setPayment('M')">
         <section>
           <h2>定期定額捐款</h2>
           <small>捐款方式：信用卡</small>
           <p>
-            改變需要時間，因此穩定可預測的收入是秀德教育基⾦會長期發展的關鍵基礎，邀請您透過每個月定期信用卡扣款，成為改變不平等的價值投資人。
+            我們期待能為青少年體育選手帶來改變，唯改變需要時間，穩定的收入是秀德教育基金會長期發展的關鍵基礎，邀請您透過每個月的信用卡定期定額扣款捐款，成為改變的力量。
           </p>
         </section>
         <i class="fa-regular fa-circle-right"></i>
       </router-link>
 
-      <!-- <router-link to="/period" class="mt-4">
+      <router-link to="/payment" @click="setPayment('O')" class="mt-4">
         <section>
           <h2>單筆支持捐款</h2>
-          <small>捐款方式：信用卡 / LINE Pay / 超商繳款 / ATM 轉帳</small>
+          <small>捐款方式：信用卡</small>
           <p>
-            在教育現場，每個與孩子互動的瞬間都很重要。同樣的，不論金額，每一筆的支持對我們而言都是縮短我們與優質教育距離的助力。
+            改變的過程，每一步都是很重要的。同樣的，不論金額大小，每一筆的捐款支持對我們而言都是成為改變的助力。
           </p>
         </section>
         <i class="fa-regular fa-circle-right"></i>
-      </router-link> -->
+      </router-link>
     </div>
 
     <div class="accordion mt-5" id="accordionExample">
